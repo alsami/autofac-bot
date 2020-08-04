@@ -1,9 +1,12 @@
-
+import {
+  BENCHMARK_COMMAD,
+  HELP_COMMAND,
+  UNKNWON_COMMAND,
+} from '@autofac-bot/constants';
+import { postBenchmarkRequest, postHelpComment } from '@autofac-bot/functions';
+import { autobotRequest } from '@autofac-bot/guards/guard.functions';
+import { validCommand } from '@autofac-bot/helper/command.extractor';
 import { Application } from 'probot';
-import { BENCHMARK_COMMAD, HELP_COMMAND, UNKNWON_COMMAND } from './constants';
-import { postBenchmarkRequest, postHelpComment } from './functions';
-import { autobotRequest } from './guards/guard.functions';
-import { validCommand } from './helper/command.extractor';
 
 export = (app: Application) => {
   app.on('issue_comment', async (context) => {
@@ -20,10 +23,7 @@ export = (app: Application) => {
 
     if (!autobotRequest(context)) return;
 
-    const words = context
-      .payload
-      .comment
-      .body
+    const words = context.payload.comment.body
       .trimLeft()
       .trimRight()
       .split(' ');
@@ -47,4 +47,4 @@ export = (app: Application) => {
 
     await postBenchmarkRequest(context, words);
   });
-}
+};

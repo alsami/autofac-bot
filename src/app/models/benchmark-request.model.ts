@@ -1,4 +1,4 @@
-import { Repository } from './repository.request.model';
+import { Repository } from '@autofac-bot/models';
 
 export interface BenchmarkRequest {
   targetRepository: Repository;
